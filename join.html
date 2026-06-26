@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login | Mustard Seed Harvest Ministries Inc.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="top-utility-bar">
+        <div class="utility-container">
+            <a href="https://m.me/mustardseedhmi" target="_blank">📺 Media</a>
+            <a href="location.html">✉ Contact Us</a>
+        </div>
+    </div>
+
+    <header class="page-title-banner" style="height:260px; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('images/hero3-bg.jpg');">
+        <nav id="navbar">
+           <div class="logo">
+    <h2>MSHI</h2>
+</div>>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul id="navMenu">
+                <li><a href="index.html">Belong & Grow</a></li>
+                <li><a href="about.html">Mission & Serve</a></li>
+                <li><a href="services.html">Worship & Music</a></li>
+                <li><a href="pastor.html">Pastors</a></li>
+                <li><a href="location.html">Location</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+            </ul>
+        </nav>
+
+        <div class="banner-center-content">
+            <h1 class="banner-main-title">STAFF LOGIN</h1>
+            <div class="banner-breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Staff Only</div>
+        </div>
+    </header>
+
+    <section class="centered-content-section is-narrow" style="padding-bottom:20px;">
+        <span class="section-eyebrow">For Staff & Ministry Leaders</span>
+        <h2 class="section-heading">Sign In To Your Staff Account</h2>
+        <p class="section-body-text">This area is reserved for church staff, pastors, and ministry leaders. Please sign in below to access internal tools and resources.</p>
+    </section>
+
+    <section class="staff-login-section">
+        <form class="staff-login-card" onsubmit="event.preventDefault(); alert('Staff login is not yet active. Please contact the church office for access.');">
+            <div class="login-field-group">
+                <label>Email or Username</label>
+                <input type="text" placeholder="you@mustardseedhmi.org" required>
+            </div>
+            <div class="login-field-group">
+                <label>Password</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit">SIGN IN</button>
+            <p class="login-helper-text">Forgot your password or need an account? <a href="location.html">Contact the church office</a>.</p>
+        </form>
+    </section>
+
+    <style>
+        .staff-login-section {
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 90px 20px;
+        }
+        .staff-login-card {
+            background-color: #ffffff;
+            border: 1px solid #eeeeee;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            width: 100%;
+            max-width: 420px;
+            padding: 45px 40px;
+            text-align: left;
+        }
+        .login-field-group { margin-bottom: 22px; }
+        .login-field-group label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--gold-dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .login-field-group input {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid #dddddd;
+            font-size: 13px;
+            outline: none;
+            font-family: inherit;
+        }
+        .login-field-group input:focus { border-color: var(--gold-primary); }
+        .staff-login-card button {
+            width: 100%;
+            background-color: var(--gold-primary);
+            color: #1c130c;
+            border: none;
+            padding: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .staff-login-card button:hover { background-color: var(--gold-dark); color: #fff; }
+        .login-helper-text {
+            text-align: center;
+            font-size: 11px;
+            color: #999999;
+            margin-top: 20px;
+            text-transform: none;
+        }
+        .login-helper-text a { color: var(--gold-dark); text-transform: none; }
+        .login-helper-text a:hover { text-decoration: underline; }
+    </style>
+
+    <footer class="premium-footer-architecture">
+        <div class="footer-top-links-grid">
+            <div class="footer-grid-column">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-vertical-navigation-list">
+                    <li><a href="index.html">Worship</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="pastor.html">Church Staff</a></li>
+                    <li><a href="services.html">Schedules</a></li>
+                    <li><a href="location.html">Site Map</a></li>
+                    <li><a href="gallery.html">Gallery Collection</a></li>
+                    <li><a href="events.html">Messenger Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-grid-column">
+                <h4>CAN'T FIND IT</h4>
+                <div class="footer-search-bar-box">
+                    <input type="text" placeholder="Search...">
+                    <button class="footer-search-action-btn">🔍</button>
+                </div>
+                <div class="footer-action-buttons-group">
+                    <a href="staff-login.html" class="footer-action-btn-link premium-gold-fill">STAFF ONLY</a>
+                    <a href="https://web.facebook.com/mustardseedhmi/" target="_blank" class="footer-action-btn-link dark-slate-fill">LOG IN</a>
+                </div>
+            </div>
+
+            <div class="footer-grid-column">
+                <h4>WORSHIP SERVICE TIMES</h4>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Sunday Sanctuary Service:</strong> 9:00 AM</div>
+                </div>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Wednesday Prayer Meeting:</strong> 7:00 PM</div>
+                </div>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Thursday Worship Night:</strong> 6:00 PM</div>
+                </div>
+                <a href="services.html" class="footer-gold-action-arrow-link">UPCOMING WORSHIP ➔</a>
+            </div>
+        </div>
+
+        <div class="footer-map-embed-block">
+            <div class="footer-map-frame-wrapper">
+                <iframe src="https://www.google.com/maps?q=Antipolo+City&output=embed" width="100%" height="240" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="floating-contact-details-card-overlay">
+                <h5>CONTACT US</h5>
+                <p>2nd Floor Samson Building,<br>Don Vicente Peñafrancia, Antipolo City</p>
+                <p>Contact: info@mustardseedhmi.org</p>
+                <p>FB: @mustardseedhmi</p>
+            </div>
+        </div>
+
+        <div class="footer-social-circular-links">
+            <a href="https://web.facebook.com/mustardseedhmi/" target="_blank" class="circular-social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.youtube.com/@MustardseedChurchChannel" target="_blank" class="circular-social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="circular-social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

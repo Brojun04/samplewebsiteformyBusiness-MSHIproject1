@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login | Mustard Seed Harvest Ministries Inc.</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        :root {
+            --gold-primary: #d4a373;
+            --gold-dark: #b8860b;
+            --dark-bg: #1c130c;
+            --dark-card: #2d2219;
+        }
+
+        .staff-login-body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Full-screen hero background */
+        .staff-login-wrapper {
+            flex: 1;
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.72)),
+                        url('images/hero1-bg.jpg') no-repeat center center / cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        /* Top nav bar inside login page */
+        .staff-login-topbar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 5;
+        }
+
+        .staff-login-topbar .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .staff-login-topbar .back-home-link {
+            color: rgba(255,255,255,0.75);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .staff-login-topbar .back-home-link:hover {
+            color: var(--gold-primary);
+        }
+
+        /* Eyebrow label */
+        .staff-login-eyebrow {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--gold-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Main heading */
+        .staff-login-heading {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .staff-login-divider {
+            width: 50px;
+            height: 2px;
+            background: var(--gold-primary);
+            margin: 18px auto 35px auto;
+        }
+
+        /* Card */
+        .staff-login-card {
+            background: rgba(28, 19, 12, 0.88);
+            border: 1px solid rgba(212, 163, 115, 0.25);
+            width: 100%;
+            max-width: 440px;
+            padding: 45px 45px 40px 45px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        /* Input groups */
+        .staff-input-group {
+            margin-bottom: 22px;
+        }
+
+        .staff-input-group label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+
+        .staff-input-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.05);
+            transition: border-color 0.3s;
+        }
+
+        .staff-input-box:focus-within {
+            border-color: var(--gold-primary);
+        }
+
+        .staff-input-box i {
+            color: rgba(255,255,255,0.35);
+            font-size: 13px;
+            padding: 0 14px;
+            flex-shrink: 0;
+        }
+
+        .staff-input-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 13px;
+            padding: 14px 14px 14px 0;
+            letter-spacing: 0.5px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .staff-input-box input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .toggle-password {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.35);
+            cursor: pointer;
+            padding: 0 14px;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .toggle-password:hover {
+            color: var(--gold-primary);
+        }
+
+        /* Options row */
+        .staff-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .staff-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: none;
+        }
+
+        .staff-options label input[type="checkbox"] {
+            accent-color: var(--gold-primary);
+            width: 13px;
+            height: 13px;
+        }
+
+        .staff-options a {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.5px;
+            text-transform: none;
+            transition: color 0.3s;
+        }
+
+        .staff-options a:hover {
+            color: var(--gold-primary);
+        }
+
+        /* Login button */
+        .staff-login-btn {
+            width: 100%;
+            background-color: var(--gold-primary);
+            color: var(--dark-bg);
+            border: none;
+            padding: 16px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .staff-login-btn:hover {
+            background-color: var(--gold-dark);
+            color: #ffffff;
+        }
+
+        /* Message */
+        #loginMessage {
+            margin-top: 18px;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-align: center;
+            min-height: 18px;
+        }
+
+        /* Bottom note */
+        .staff-login-footnote {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 10px;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 520px) {
+            .staff-login-card {
+                padding: 35px 25px 30px 25px;
+            }
+            .staff-login-topbar {
+                padding: 16px 20px;
+            }
+            .staff-login-heading {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body class="staff-login-body">
+
+    <div class="staff-login-wrapper">
+
+        <!-- Top Bar -->
+        <div class="staff-login-topbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="Mustard Seed Logo">
+            </div>
+            <a href="index.html" class="back-home-link">
+                <i class="fa-solid fa-arrow-left"></i> Back to Website
+            </a>
+        </div>
+
+        <!-- Heading -->
+        <p class="staff-login-eyebrow">Mustard Seed Harvest Ministries Inc.</p>
+        <h1 class="staff-login-heading">Staff Portal</h1>
+        <div class="staff-login-divider"></div>
+
+        <!-- Login Card -->
+        <div class="staff-login-card">
+
+            <form id="loginForm">
+
+                <!-- Email -->
+                <div class="staff-input-group">
+                    <label>Email Address</label>
+                    <div class="staff-input-box">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="staff-input-group">
+                    <label>Password</label>
+                    <div class="staff-input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <button type="button" id="togglePassword" class="toggle-password">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Options -->
+                <div class="staff-options">
+                    <label>
+                        <input type="checkbox"> Remember Me
+                    </label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="staff-login-btn">Login</button>
+
+                <p id="loginMessage"></p>
+
+            </form>
+
+        </div>
+
+        <p class="staff-login-footnote">Authorized Personnel Only</p>
+
+    </div>
+
+    <script type="module" src="js/staff-login.js"></script>
+
+    <script>
+        // Toggle password visibility
+        const toggleBtn = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        toggleBtn.addEventListener('click', () => {
+            const isText = passwordInput.type === 'text';
+            passwordInput.type = isText ? 'password' : 'text';
+            toggleBtn.querySelector('i').className = isText ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash';
+        });
+    </script>
+
+</body>
+</html>

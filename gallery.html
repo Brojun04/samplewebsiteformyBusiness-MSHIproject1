@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Mustard Seed Harvest Ministries Inc.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="top-utility-bar">
+        <div class="utility-container">
+            <a href="https://m.me/mustardseedhmi" target="_blank">Media</a>
+            <a href="location.html">✉ Contact Us</a>
+        </div>
+    </div>
+
+    <header class="page-title-banner" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('images/weddings.jpg');">
+        <nav id="navbar">
+            <div class="logo">
+    <h2>MSHI</h2>
+</div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul id="navMenu">
+                <li><a href="index.html">Belong & Grow</a></li>
+                <li><a href="about.html">Mission & Serve</a></li>
+                <li><a href="services.html">Worship & Music</a></li>
+                <li><a href="pastor.html">Pastors</a></li>
+                <li><a href="location.html">Location</a></li>
+                <li><a href="gallery.html" class="nav-active">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+            </ul>
+        </nav>
+
+        <div class="banner-center-content">
+            <h1 class="banner-main-title">GALLERY</h1>
+            <div class="banner-breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Gallery</div>
+        </div>
+    </header>
+
+    <section class="centered-content-section">
+        <span class="section-eyebrow">Moments Worth Remembering</span>
+        <h2 class="section-heading">A Look Into Our Church Life</h2>
+        <p class="section-body-text">From missional communities to weddings and special celebrations — these are the moments where our church family grows closer to God and to one another.</p>
+    </section>
+
+    <div class="gallery-filter-tabs">
+        <button class="gallery-tab-active" onclick="filterGallery('all', this)">All</button>
+        <button onclick="filterGallery('Communities', this)">Communities</button>
+        <button onclick="filterGallery('Sermons', this)">Sermons</button>
+        <button onclick="filterGallery('Weddings', this)">Weddings</button>
+        <button onclick="filterGallery('Events', this)">Special Events</button>
+        <button onclick="filterGallery('General', this)">General</button>
+    </div>
+
+    <section class="gallery-masonry-grid" id="galleryGrid">
+
+        <!-- Static default tiles -->
+        <div class="quad-item-card gallery-tile" data-category="Communities" data-source="static" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/communities.jpg');" onclick="openLightbox('images/communities.jpg', 'Missional Communities', 'Growing together in faith through small groups and fellowship.')">
+            <div class="quad-card-overlay-info"><h3>Missional Communities</h3><div class="interactive-plus-icon">+</div></div>
+        </div>
+        <div class="quad-item-card gallery-tile" data-category="Sermons" data-source="static" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/sermons.jpg');" onclick="openLightbox('images/sermons.jpg', 'Previous Sermons', 'Revisit powerful messages from our past worship services.')">
+            <div class="quad-card-overlay-info"><h3>Previous Sermons</h3><div class="interactive-plus-icon">+</div></div>
+        </div>
+        <div class="quad-item-card gallery-tile" data-category="Weddings" data-source="static" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/weddings-new.jpg');" onclick="openLightbox('images/weddings-new.jpg', 'Our Weddings', 'Celebrating sacred unions blessed within our community.')">
+            <div class="quad-card-overlay-info"><h3>Our Weddings</h3><div class="interactive-plus-icon">+</div></div>
+        </div>
+        <div class="quad-item-card gallery-tile" data-category="Events" data-source="static" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/special-events.jpg');" onclick="openLightbox('images/special-events.jpg', 'Special Events', 'Memorable moments from our special church gatherings.')">
+            <div class="quad-card-overlay-info"><h3>Special Events</h3><div class="interactive-plus-icon">+</div></div>
+        </div>
+        <div class="quad-item-card gallery-tile" data-category="Communities" data-source="static" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/pastor.jpg');" onclick="openLightbox('images/pastor.jpg', 'Pastoral Care', 'Our pastors ministering and praying with the congregation.')">
+            <div class="quad-card-overlay-info"><h3>Pastoral Care</h3><div class="interactive-plus-icon">+</div></div>
+        </div>
+        <div class="quad-item-card gallery-tile" data-category="Events" data-source="static" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/hero1-bg.jpg');" onclick="openLightbox('images/hero1-bg.jpg', 'Sunday Worship', 'Our congregation gathered together in worship.')">
+            <div class="quad-card-overlay-info"><h3>Sunday Worship</h3><div class="interactive-plus-icon">+</div></div>
+        </div>
+
+        <!-- Loading indicator for Firestore photos -->
+        <div id="galleryLoading" style="grid-column: 1/-1; text-align:center; padding:30px; color:#999; font-size:13px; letter-spacing:1px;">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size:20px; color:#d4a373; margin-bottom:10px; display:block;"></i>
+            Loading more photos...
+        </div>
+
+    </section>
+
+    <!-- Empty state for Firestore (shown if no Firestore photos) -->
+    <div id="galleryEmpty" style="display:none;"></div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal-overlay" onclick="closeLightboxOnOverlay(event)">
+        <div class="lightbox-modal-box">
+            <span class="lightbox-close-btn" onclick="closeLightbox()">&times;</span>
+            <img id="lightboxImage" class="lightbox-modal-image" src="" alt="">
+            <div class="lightbox-modal-caption">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .lightbox-modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; }
+        .lightbox-modal-overlay.active { display:flex; }
+        .lightbox-modal-box { position:relative; max-width:700px; width:100%; background:#fff; border-radius:8px; overflow:hidden; animation:lightboxFadeIn 0.25s ease; }
+        @keyframes lightboxFadeIn { from{opacity:0;transform:scale(0.95);} to{opacity:1;transform:scale(1);} }
+        .lightbox-modal-image { width:100%; max-height:70vh; object-fit:cover; display:block; }
+        .lightbox-modal-caption { padding:20px; text-align:center; }
+        .lightbox-modal-caption h3 { margin:0 0 8px; }
+        .lightbox-modal-caption p { margin:0; color:#555; }
+        .lightbox-close-btn { position:absolute; top:10px; right:16px; font-size:32px; color:#fff; cursor:pointer; z-index:10; text-shadow:0 0 6px rgba(0,0,0,0.6); }
+
+        /* Dynamic Firestore tiles */
+        .gallery-tile-dynamic {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .gallery-tile-dynamic .quad-card-overlay-info {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            background: rgba(0,0,0,0.3);
+            transition: background 0.3s ease;
+        }
+        .gallery-tile-dynamic:hover .quad-card-overlay-info {
+            background: rgba(28,19,12,0.6);
+        }
+        .gallery-tile-dynamic .quad-card-overlay-info h3 {
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-align: center;
+            padding: 0 10px;
+        }
+        .gallery-tile-dynamic .interactive-plus-icon {
+            width: 32px; height: 32px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        .gallery-tile-dynamic:hover .interactive-plus-icon {
+            transform: scale(1.1);
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
+
+    <script>
+        let currentFilter = 'all';
+
+        function openLightbox(imgSrc, title, desc) {
+            document.getElementById('lightboxImage').src = imgSrc;
+            document.getElementById('lightboxTitle').textContent = title;
+            document.getElementById('lightboxDesc').textContent = desc;
+            document.getElementById('lightboxModal').classList.add('active');
+        }
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.remove('active');
+        }
+        function closeLightboxOnOverlay(event) {
+            if (event.target.id === 'lightboxModal') closeLightbox();
+        }
+
+        function filterGallery(category, btn) {
+            currentFilter = category;
+            document.querySelectorAll('.gallery-filter-tabs button').forEach(b => b.classList.remove('gallery-tab-active'));
+            btn.classList.add('gallery-tab-active');
+            document.querySelectorAll('.gallery-tile, .gallery-tile-dynamic').forEach(tile => {
+                const match = category === 'all' || tile.dataset.category === category;
+                tile.style.display = match ? 'block' : 'none';
+            });
+        }
+
+        window.openLightbox = openLightbox;
+        window.filterGallery = filterGallery;
+    </script>
+
+    <!-- Firestore Gallery Loader -->
+    <script type="module">
+        import { db } from "./js/firebase.js";
+        import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        async function loadGallery() {
+            const loading = document.getElementById('galleryLoading');
+            const grid    = document.getElementById('galleryGrid');
+
+            try {
+                const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+                const snap = await getDocs(q);
+
+                loading.style.display = 'none';
+
+                if (snap.empty) return;
+
+                snap.docs.forEach(d => {
+                    const g = d.data();
+                    const tile = document.createElement('div');
+                    tile.className = 'gallery-tile-dynamic';
+                    tile.dataset.category = g.category || 'General';
+                    tile.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${g.url}')`;
+                    tile.onclick = () => window.openLightbox(g.url, g.title, g.category || '');
+                    tile.innerHTML = `
+                        <div class="quad-card-overlay-info">
+                            <h3>${g.title}</h3>
+                            <div class="interactive-plus-icon">+</div>
+                        </div>`;
+                    grid.appendChild(tile);
+                });
+
+            } catch (err) {
+                loading.innerHTML = '';
+                console.error('Gallery load error:', err);
+            }
+        }
+
+        loadGallery();
+    </script>
+
+    <footer class="premium-footer-architecture">
+        <div class="footer-top-links-grid">
+            <div class="footer-grid-column">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-vertical-navigation-list">
+                    <li><a href="index.html">Worship</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="pastor.html">Church Staff</a></li>
+                    <li><a href="services.html">Schedules</a></li>
+                    <li><a href="location.html">Site Map</a></li>
+                    <li><a href="gallery.html">Gallery Collection</a></li>
+                    <li><a href="events.html">Messenger Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-grid-column">
+                <h4>CAN'T FIND IT</h4>
+                <div class="footer-search-bar-box">
+                    <input type="text" placeholder="Search...">
+                    <button class="footer-search-action-btn">🔍</button>
+                </div>
+                <div class="footer-action-buttons-group">
+                    <a href="staff-login.html" class="footer-action-btn-link premium-gold-fill">STAFF ONLY</a>
+                    <a href="https://web.facebook.com/mustardseedhmi/" target="_blank" class="footer-action-btn-link dark-slate-fill">LOG IN</a>
+                </div>
+            </div>
+            <div class="footer-grid-column">
+                <h4>WORSHIP SERVICE TIMES</h4>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Sunday Sanctuary Service:</strong> 9:00 AM</div>
+                </div>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Wednesday Prayer Meeting:</strong> 7:00 PM</div>
+                </div>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Thursday Worship Night:</strong> 6:00 PM</div>
+                </div>
+                <a href="services.html" class="footer-gold-action-arrow-link">UPCOMING WORSHIP ➔</a>
+            </div>
+        </div>
+        <div class="footer-map-embed-block">
+            <div class="footer-map-frame-wrapper">
+                <iframe src="https://www.google.com/maps?q=Antipolo+City&output=embed" width="100%" height="240" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="floating-contact-details-card-overlay">
+                <h5>CONTACT US</h5>
+                <p>2nd Floor Samson Building,<br>Don Vicente Peñafrancia, Antipolo City</p>
+                <p>Contact: info@mustardseedhmi.org</p>
+                <p>FB: @mustardseedhmi</p>
+            </div>
+        </div>
+        <div class="footer-social-circular-links">
+            <a href="https://web.facebook.com/mustardseedhmi/" target="_blank" class="circular-social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.youtube.com/@MustardseedChurchChannel" target="_blank" class="circular-social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="circular-social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

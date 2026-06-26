@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Mustard Seed Harvest Ministries</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        :root {
+            --gold: #d4a373;
+            --gold-dark: #b8860b;
+            --dark: #1c130c;
+            --dark-card: #2d2219;
+            --dark-sidebar: #160e08;
+            --dark-hover: #3a2c1e;
+            --text-muted: rgba(255,255,255,0.45);
+            --text-light: rgba(255,255,255,0.85);
+            --border: rgba(212,163,115,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f1ec;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background-color: var(--dark-sidebar);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-logo {
+            padding: 28px 24px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo img {
+            height: 38px;
+            width: auto;
+        }
+
+        .sidebar-logo-text {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .sidebar-section-label {
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding: 22px 24px 8px;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding-bottom: 20px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 12px 24px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav a i {
+            width: 16px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .sidebar-nav a:hover {
+            color: var(--text-light);
+            background: var(--dark-hover);
+        }
+
+        .sidebar-nav a.active {
+            color: var(--gold);
+            border-left-color: var(--gold);
+            background: rgba(212,163,115,0.08);
+        }
+
+        .sidebar-bottom {
+            border-top: 1px solid var(--border);
+            padding: 18px 24px;
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: var(--dark);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            font-size: 11px;
+        }
+
+        .user-name {
+            color: var(--text-light);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .user-role {
+            color: var(--text-muted);
+            font-size: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        #logoutBtn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-muted);
+            padding: 9px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        #logoutBtn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ── MAIN CONTENT ── */
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background: #ffffff;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eeeeee;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #222;
+        }
+
+        .topbar-subtitle {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .view-site-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--dark);
+            color: var(--gold);
+            padding: 9px 18px;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .view-site-btn:hover {
+            background: var(--dark-card);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Page Body */
+        .page-body {
+            padding: 35px;
+            flex: 1;
+        }
+
+        /* Sections */
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        /* ── OVERVIEW SECTION ── */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-card) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 28px 32px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-banner h2 {
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .welcome-banner p {
+            font-size: 12px;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .welcome-banner .date-badge {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+            text-align: right;
+        }
+
+        /* Stat Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid #eeeeee;
+            padding: 22px 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+        }
+
+        .stat-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .stat-icon {
+            font-size: 22px;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 300;
+            color: #222;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #999;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Quick Actions */
+        .section-heading {
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            color: var(--gold-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .quick-action-card {
+            background: #ffffff;
+            border: 1px solid #eeeeee;
+            padding: 22px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-action-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+
+        .quick-action-card i {
+            font-size: 20px;
+            color: var(--gold);
+        }
+
+        .quick-action-card span {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #555;
+            font-weight: 600;
+        }
+
+        /* ── CONTENT PANELS (Events, Gallery, Blog, Videos) ── */
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .panel-header h2 {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #222;
+            font-weight: 600;
+        }
+
+        .btn-add {
+            background: var(--dark);
+            color: var(--gold);
+            border: none;
+            padding: 11px 22px;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-add:hover {
+            background: var(--dark-card);
+        }
+
+        /* Form Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            background: var(--dark);
+            padding: 20px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover { color: #fff; }
+
+        .modal-body {
+            padding: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #777;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .modal-footer {
+            padding: 0 28px 28px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-save {
+            flex: 1;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            padding: 13px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+
+        .btn-save:hover { background: var(--gold-dark); color: #fff; }
+
+        .btn-cancel {
+            background: none;
+            border: 1px solid #ddd;
+            color: #777;
+            padding: 13px 20px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover { border-color: #999; color: #333; }
+
+        /* Table */
+        .data-table-wrapper {
+            background: #fff;
+            border: 1px solid #eeeeee;
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: var(--dark);
+            color: var(--gold);
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 14px 18px;
+            font-size: 13px;
+            color: #444;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover td { background: #faf8f5; }
+
+        .table-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-edit, .btn-delete {
+            border: none;
+            padding: 6px 12px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-edit {
+            background: #f0ebe3;
+            color: var(--gold-dark);
+        }
+
+        .btn-edit:hover { background: var(--gold); color: var(--dark); }
+
+        .btn-delete {
+            background: #fdf0f0;
+            color: #c0392b;
+        }
+
+        .btn-delete:hover { background: #c0392b; color: #fff; }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #bbb;
+        }
+
+        .empty-state i {
+            font-size: 36px;
+            margin-bottom: 14px;
+            display: block;
+            color: var(--gold);
+            opacity: 0.4;
+        }
+
+        .empty-state p {
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--dark);
+            color: var(--gold);
+            padding: 14px 22px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            border-left: 3px solid var(--gold);
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gallery grid in dashboard */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-card {
+            background: #fff;
+            border: 1px solid #eee;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-card-info {
+            padding: 10px 12px;
+        }
+
+        .gallery-card-info p {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 3px 9px;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .badge-gold { background: #fdf5e6; color: var(--gold-dark); }
+        .badge-green { background: #edfaf1; color: #27ae60; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .page-body {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <img src="images/logo.png" alt="Logo">
+            <div class="sidebar-logo-text">Mustard Seed<br>Admin Panel</div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-section-label">Main</div>
+            <a href="#" class="active" onclick="showSection('overview', this)">
+                <i class="fa-solid fa-house"></i> Overview
+            </a>
+
+            <div class="sidebar-section-label">Content</div>
+            <a href="#" onclick="showSection('events', this)">
+                <i class="fa-solid fa-calendar-days"></i> Events
+            </a>
+            <a href="#" onclick="showSection('gallery', this)">
+                <i class="fa-solid fa-images"></i> Gallery
+            </a>
+            <a href="#" onclick="showSection('blog', this)">
+                <i class="fa-solid fa-newspaper"></i> Blog / Messenger
+            </a>
+            <a href="#" onclick="showSection('videos', this)">
+                <i class="fa-solid fa-video"></i> Videos / Sermons
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-user">
+                <div class="user-avatar" id="userAvatar">S</div>
+                <div class="user-info">
+                    <div class="user-name" id="userName">Staff</div>
+                    <div class="user-role">Administrator</div>
+                </div>
+            </div>
+            <button id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> &nbsp;Logout</button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main-content">
+
+        <!-- Topbar -->
+        <div class="topbar">
+            <div>
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+                <div class="topbar-title" id="topbarTitle">Overview</div>
+                <div class="topbar-subtitle">Mustard Seed Harvest Ministries Inc.</div>
+            </div>
+            <div class="topbar-right">
+                <a href="index.html" class="view-site-btn" target="_blank">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> View Site
+                </a>
+            </div>
+        </div>
+
+        <div class="page-body">
+
+            <!-- ── OVERVIEW ── -->
+            <div id="section-overview" class="dashboard-section active">
+                <div class="welcome-banner">
+                    <div>
+                        <h2>Welcome Back!</h2>
+                        <p>Mustard Seed Staff Portal — Manage your church content below.</p>
+                    </div>
+                    <div class="date-badge" id="currentDate"></div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card" onclick="showSection('events', document.querySelector('[onclick*=events]'))">
+                        <div class="stat-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                        <div class="stat-number" id="countEvents">0</div>
+                        <div class="stat-label">Events</div>
+                    </div>
+                    <div class="stat-card" onclick="showSection('gallery', document.querySelector('[onclick*=gallery]'))">
+                        <div class="stat-icon"><i class="fa-solid fa-images"></i></div>
+                        <div class="stat-number" id="countGallery">0</div>
+                        <div class="stat-label">Gallery Photos</div>
+                    </div>
+                    <div class="stat-card" onclick="showSection('blog', document.querySelector('[onclick*=blog]'))">
+                        <div class="stat-icon"><i class="fa-solid fa-newspaper"></i></div>
+                        <div class="stat-number" id="countBlog">0</div>
+                        <div class="stat-label">Blog Posts</div>
+                    </div>
+                    <div class="stat-card" onclick="showSection('videos', document.querySelector('[onclick*=videos]'))">
+                        <div class="stat-icon"><i class="fa-solid fa-video"></i></div>
+                        <div class="stat-number" id="countVideos">0</div>
+                        <div class="stat-label">Sermons</div>
+                    </div>
+                </div>
+
+                <div class="section-heading">Quick Actions</div>
+                <div class="quick-actions-grid">
+                    <div class="quick-action-card" onclick="showSection('events', document.querySelector('[onclick*=events]')); openModal('event')">
+                        <i class="fa-solid fa-calendar-plus"></i>
+                        <span>Add Event</span>
+                    </div>
+                    <div class="quick-action-card" onclick="showSection('gallery', document.querySelector('[onclick*=gallery]')); openModal('gallery')">
+                        <i class="fa-solid fa-image"></i>
+                        <span>Add Photo</span>
+                    </div>
+                    <div class="quick-action-card" onclick="showSection('blog', document.querySelector('[onclick*=blog]')); openModal('blog')">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>New Post</span>
+                    </div>
+                    <div class="quick-action-card" onclick="showSection('videos', document.querySelector('[onclick*=videos]')); openModal('video')">
+                        <i class="fa-solid fa-circle-play"></i>
+                        <span>Add Sermon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── EVENTS ── -->
+            <div id="section-events" class="dashboard-section">
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-calendar-days" style="color:var(--gold);margin-right:10px"></i>Events</h2>
+                    <button class="btn-add" onclick="openModal('event')"><i class="fa-solid fa-plus"></i> Add Event</button>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Posted By</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTableBody"></tbody>
+                    </table>
+                    <div id="eventsEmpty" class="empty-state">
+                        <i class="fa-solid fa-calendar-xmark"></i>
+                        <p>No events yet — add your first event</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── GALLERY ── -->
+            <div id="section-gallery" class="dashboard-section">
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-images" style="color:var(--gold);margin-right:10px"></i>Gallery</h2>
+                    <button class="btn-add" onclick="openModal('gallery')"><i class="fa-solid fa-plus"></i> Add Photo</button>
+                </div>
+                <div id="galleryGrid" class="gallery-grid"></div>
+                <div id="galleryEmpty" class="empty-state">
+                    <i class="fa-solid fa-image"></i>
+                    <p>No photos yet — add your first photo</p>
+                </div>
+            </div>
+
+            <!-- ── BLOG ── -->
+            <div id="section-blog" class="dashboard-section">
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-newspaper" style="color:var(--gold);margin-right:10px"></i>Blog / Messenger</h2>
+                    <button class="btn-add" onclick="openModal('blog')"><i class="fa-solid fa-plus"></i> New Post</button>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Preview</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blogTableBody"></tbody>
+                    </table>
+                    <div id="blogEmpty" class="empty-state">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        <p>No posts yet — write your first post</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── VIDEOS ── -->
+            <div id="section-videos" class="dashboard-section">
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-video" style="color:var(--gold);margin-right:10px"></i>Videos / Sermons</h2>
+                    <button class="btn-add" onclick="openModal('video')"><i class="fa-solid fa-plus"></i> Add Sermon</button>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Title</th>
+                                <th>Speaker</th>
+                                <th>YouTube Link</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="videosTableBody"></tbody>
+                    </table>
+                    <div id="videosEmpty" class="empty-state">
+                        <i class="fa-solid fa-circle-play"></i>
+                        <p>No sermons yet — add your first video</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ── MODALS ── -->
+
+    <!-- Event Modal -->
+    <div class="modal-overlay" id="modal-event">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="eventModalTitle">Add Event</h3>
+                <button class="modal-close" onclick="closeModal('event')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="eventId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Day (e.g. 12)</label>
+                        <input type="text" id="eventDay" placeholder="12" maxlength="2">
+                    </div>
+                    <div class="form-group">
+                        <label>Month (e.g. JUL)</label>
+                        <input type="text" id="eventMonth" placeholder="JUL" maxlength="3">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Event Title</label>
+                    <input type="text" id="eventTitle" placeholder="e.g. Sunday Worship Service">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="eventDesc" placeholder="Brief description of the event..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Posted By</label>
+                    <input type="text" id="eventAuthor" placeholder="e.g. Pastor Ulysses Tabugadir">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('event')">Cancel</button>
+                <button class="btn-save" onclick="saveEvent()">Save Event</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div class="modal-overlay" id="modal-gallery">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="galleryModalTitle">Add Photo</h3>
+                <button class="modal-close" onclick="closeModal('gallery')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="galleryId">
+                <div class="form-group">
+                    <label>Photo Title</label>
+                    <input type="text" id="galleryTitle" placeholder="e.g. Church Anniversary 2026">
+                </div>
+                <div class="form-group">
+                    <label>Google Drive / Image URL</label>
+                    <input type="text" id="galleryUrl" placeholder="https://drive.google.com/...">
+                    <small style="color:#999;font-size:10px;margin-top:5px;display:block">
+                        Tip: Sa Google Drive, i-right click ang image → Share → Anyone with link → Copy link. Gamitin ang direct image link.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="galleryCategory">
+                        <option value="General">General</option>
+                        <option value="Weddings">Weddings</option>
+                        <option value="Events">Events</option>
+                        <option value="Communities">Communities</option>
+                        <option value="Sermons">Sermons</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('gallery')">Cancel</button>
+                <button class="btn-save" onclick="saveGallery()">Save Photo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Modal -->
+    <div class="modal-overlay" id="modal-blog">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="blogModalTitle">New Post</h3>
+                <button class="modal-close" onclick="closeModal('blog')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="blogId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Day (e.g. 15)</label>
+                        <input type="text" id="blogDay" placeholder="15" maxlength="2">
+                    </div>
+                    <div class="form-group">
+                        <label>Month (e.g. JUN)</label>
+                        <input type="text" id="blogMonth" placeholder="JUN" maxlength="3">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Post Title</label>
+                    <input type="text" id="blogTitle" placeholder="e.g. Church Anniversary 2026">
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea id="blogContent" placeholder="Write your post content here..." style="min-height:130px"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" id="blogAuthor" placeholder="e.g. MSHMI Ministry Team">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('blog')">Cancel</button>
+                <button class="btn-save" onclick="saveBlog()">Publish Post</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div class="modal-overlay" id="modal-video">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="videoModalTitle">Add Sermon</h3>
+                <button class="modal-close" onclick="closeModal('video')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="videoId">
+                <div class="form-group">
+                    <label>Sermon Title</label>
+                    <input type="text" id="videoTitle" placeholder="e.g. Walking in Faith">
+                </div>
+                <div class="form-group">
+                    <label>Speaker</label>
+                    <input type="text" id="videoSpeaker" placeholder="e.g. Pastor Ulysses Tabugadir">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="videoDate">
+                </div>
+                <div class="form-group">
+                    <label>YouTube Link</label>
+                    <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('video')">Cancel</button>
+                <button class="btn-save" onclick="saveVideo()">Save Sermon</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Firebase -->
+    <script type="module">
+        import { auth, db } from "./js/firebase.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+        import {
+            collection, addDoc, getDocs, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        // Auth check
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "staff-login.html";
+            } else {
+                const name = user.email.split('@')[0];
+                document.getElementById('userName').textContent = name;
+                document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+                loadAll();
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await signOut(auth);
+            window.location.href = "staff-login.html";
+        });
+
+        // ── LOAD ALL ──
+        async function loadAll() {
+            await loadEvents();
+            await loadGallery();
+            await loadBlog();
+            await loadVideos();
+        }
+
+        // ── EVENTS ──
+        window.saveEvent = async function () {
+            const id = document.getElementById('eventId').value;
+            const data = {
+                day: document.getElementById('eventDay').value.trim(),
+                month: document.getElementById('eventMonth').value.trim().toUpperCase(),
+                title: document.getElementById('eventTitle').value.trim(),
+                desc: document.getElementById('eventDesc').value.trim(),
+                author: document.getElementById('eventAuthor').value.trim(),
+                updatedAt: serverTimestamp()
+            };
+            if (!data.title) return showToast('Please enter an event title.');
+            try {
+                if (id) {
+                    await updateDoc(doc(db, 'events', id), data);
+                    showToast('Event updated!');
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, 'events'), data);
+                    showToast('Event saved!');
+                }
+                closeModal('event');
+                loadEvents();
+            } catch (e) { showToast('Error: ' + e.message); }
+        };
+
+        async function loadEvents() {
+            const q = query(collection(db, 'events'), orderBy('createdAt', 'desc'));
+            const snap = await getDocs(q).catch(() => ({ docs: [] }));
+            const tbody = document.getElementById('eventsTableBody');
+            tbody.innerHTML = '';
+            document.getElementById('eventsEmpty').style.display = snap.docs.length ? 'none' : 'block';
+            document.getElementById('countEvents').textContent = snap.docs.length;
+            snap.docs.forEach(d => {
+                const ev = d.data();
+                tbody.innerHTML += `
+                <tr>
+                    <td><span class="badge badge-gold">${ev.day || ''} ${ev.month || ''}</span></td>
+                    <td><strong>${ev.title}</strong></td>
+                    <td style="max-width:200px;color:#777;font-size:12px">${ev.desc || ''}</td>
+                    <td style="font-size:11px;color:#999">${ev.author || ''}</td>
+                    <td><div class="table-actions">
+                        <button class="btn-edit" onclick="editEvent('${d.id}','${ev.day}','${ev.month}','${escQ(ev.title)}','${escQ(ev.desc)}','${escQ(ev.author)}')">Edit</button>
+                        <button class="btn-delete" onclick="deleteItem('events','${d.id}',loadEvents)">Delete</button>
+                    </div></td>
+                </tr>`;
+            });
+        }
+
+        window.editEvent = function(id, day, month, title, desc, author) {
+            document.getElementById('eventId').value = id;
+            document.getElementById('eventDay').value = day;
+            document.getElementById('eventMonth').value = month;
+            document.getElementById('eventTitle').value = title;
+            document.getElementById('eventDesc').value = desc;
+            document.getElementById('eventAuthor').value = author;
+            document.getElementById('eventModalTitle').textContent = 'Edit Event';
+            openModal('event');
+        };
+
+        // ── GALLERY ──
+        window.saveGallery = async function () {
+            const id = document.getElementById('galleryId').value;
+            const data = {
+                title: document.getElementById('galleryTitle').value.trim(),
+                url: document.getElementById('galleryUrl').value.trim(),
+                category: document.getElementById('galleryCategory').value,
+                updatedAt: serverTimestamp()
+            };
+            if (!data.title || !data.url) return showToast('Please fill in title and URL.');
+            try {
+                if (id) {
+                    await updateDoc(doc(db, 'gallery', id), data);
+                    showToast('Photo updated!');
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, 'gallery'), data);
+                    showToast('Photo saved!');
+                }
+                closeModal('gallery');
+                loadGallery();
+            } catch (e) { showToast('Error: ' + e.message); }
+        };
+
+        async function loadGallery() {
+            const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+            const snap = await getDocs(q).catch(() => ({ docs: [] }));
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            document.getElementById('galleryEmpty').style.display = snap.docs.length ? 'none' : 'block';
+            document.getElementById('countGallery').textContent = snap.docs.length;
+            snap.docs.forEach(d => {
+                const g = d.data();
+                grid.innerHTML += `
+                <div class="gallery-card">
+                    <img src="${g.url}" alt="${g.title}" onerror="this.src='images/logo.png'">
+                    <div class="gallery-card-info">
+                        <p><strong>${g.title}</strong></p>
+                        <p>${g.category}</p>
+                        <div class="table-actions">
+                            <button class="btn-edit" onclick="editGallery('${d.id}','${escQ(g.title)}','${escQ(g.url)}','${g.category}')">Edit</button>
+                            <button class="btn-delete" onclick="deleteItem('gallery','${d.id}',loadGallery)">Delete</button>
+                        </div>
+                    </div>
+                </div>`;
+            });
+        }
+
+        window.editGallery = function(id, title, url, category) {
+            document.getElementById('galleryId').value = id;
+            document.getElementById('galleryTitle').value = title;
+            document.getElementById('galleryUrl').value = url;
+            document.getElementById('galleryCategory').value = category;
+            document.getElementById('galleryModalTitle').textContent = 'Edit Photo';
+            openModal('gallery');
+        };
+
+        // ── BLOG ──
+        window.saveBlog = async function () {
+            const id = document.getElementById('blogId').value;
+            const data = {
+                day: document.getElementById('blogDay').value.trim(),
+                month: document.getElementById('blogMonth').value.trim().toUpperCase(),
+                title: document.getElementById('blogTitle').value.trim(),
+                content: document.getElementById('blogContent').value.trim(),
+                author: document.getElementById('blogAuthor').value.trim(),
+                updatedAt: serverTimestamp()
+            };
+            if (!data.title) return showToast('Please enter a post title.');
+            try {
+                if (id) {
+                    await updateDoc(doc(db, 'blog', id), data);
+                    showToast('Post updated!');
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, 'blog'), data);
+                    showToast('Post published!');
+                }
+                closeModal('blog');
+                loadBlog();
+            } catch (e) { showToast('Error: ' + e.message); }
+        };
+
+        async function loadBlog() {
+            const q = query(collection(db, 'blog'), orderBy('createdAt', 'desc'));
+            const snap = await getDocs(q).catch(() => ({ docs: [] }));
+            const tbody = document.getElementById('blogTableBody');
+            tbody.innerHTML = '';
+            document.getElementById('blogEmpty').style.display = snap.docs.length ? 'none' : 'block';
+            document.getElementById('countBlog').textContent = snap.docs.length;
+            snap.docs.forEach(d => {
+                const b = d.data();
+                tbody.innerHTML += `
+                <tr>
+                    <td><span class="badge badge-gold">${b.day || ''} ${b.month || ''}</span></td>
+                    <td><strong>${b.title}</strong></td>
+                    <td style="font-size:11px;color:#999">${b.author || ''}</td>
+                    <td style="max-width:180px;font-size:12px;color:#777">${(b.content || '').substring(0, 60)}...</td>
+                    <td><div class="table-actions">
+                        <button class="btn-edit" onclick="editBlog('${d.id}','${b.day}','${b.month}','${escQ(b.title)}','${escQ(b.content)}','${escQ(b.author)}')">Edit</button>
+                        <button class="btn-delete" onclick="deleteItem('blog','${d.id}',loadBlog)">Delete</button>
+                    </div></td>
+                </tr>`;
+            });
+        }
+
+        window.editBlog = function(id, day, month, title, content, author) {
+            document.getElementById('blogId').value = id;
+            document.getElementById('blogDay').value = day;
+            document.getElementById('blogMonth').value = month;
+            document.getElementById('blogTitle').value = title;
+            document.getElementById('blogContent').value = content;
+            document.getElementById('blogAuthor').value = author;
+            document.getElementById('blogModalTitle').textContent = 'Edit Post';
+            openModal('blog');
+        };
+
+        // ── VIDEOS ──
+        window.saveVideo = async function () {
+            const id = document.getElementById('videoId').value;
+            const data = {
+                title: document.getElementById('videoTitle').value.trim(),
+                speaker: document.getElementById('videoSpeaker').value.trim(),
+                date: document.getElementById('videoDate').value,
+                url: document.getElementById('videoUrl').value.trim(),
+                updatedAt: serverTimestamp()
+            };
+            if (!data.title || !data.url) return showToast('Please fill in title and YouTube link.');
+            try {
+                if (id) {
+                    await updateDoc(doc(db, 'videos', id), data);
+                    showToast('Sermon updated!');
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, 'videos'), data);
+                    showToast('Sermon saved!');
+                }
+                closeModal('video');
+                loadVideos();
+            } catch (e) { showToast('Error: ' + e.message); }
+        };
+
+        async function loadVideos() {
+            const q = query(collection(db, 'videos'), orderBy('createdAt', 'desc'));
+            const snap = await getDocs(q).catch(() => ({ docs: [] }));
+            const tbody = document.getElementById('videosTableBody');
+            tbody.innerHTML = '';
+            document.getElementById('videosEmpty').style.display = snap.docs.length ? 'none' : 'block';
+            document.getElementById('countVideos').textContent = snap.docs.length;
+            snap.docs.forEach(d => {
+                const v = d.data();
+                tbody.innerHTML += `
+                <tr>
+                    <td style="font-size:12px">${v.date || ''}</td>
+                    <td><strong>${v.title}</strong></td>
+                    <td style="font-size:12px;color:#777">${v.speaker || ''}</td>
+                    <td><a href="${v.url}" target="_blank" style="color:var(--gold-dark);font-size:11px">Watch ↗</a></td>
+                    <td><div class="table-actions">
+                        <button class="btn-edit" onclick="editVideo('${d.id}','${escQ(v.title)}','${escQ(v.speaker)}','${v.date}','${escQ(v.url)}')">Edit</button>
+                        <button class="btn-delete" onclick="deleteItem('videos','${d.id}',loadVideos)">Delete</button>
+                    </div></td>
+                </tr>`;
+            });
+        }
+
+        window.editVideo = function(id, title, speaker, date, url) {
+            document.getElementById('videoId').value = id;
+            document.getElementById('videoTitle').value = title;
+            document.getElementById('videoSpeaker').value = speaker;
+            document.getElementById('videoDate').value = date;
+            document.getElementById('videoUrl').value = url;
+            document.getElementById('videoModalTitle').textContent = 'Edit Sermon';
+            openModal('video');
+        };
+
+        // ── DELETE ──
+        window.deleteItem = async function(col, id, reloadFn) {
+            if (!confirm('Delete this item?')) return;
+            await deleteDoc(doc(db, col, id));
+            showToast('Deleted.');
+            reloadFn();
+        };
+
+        // expose reload fns
+        window.loadEvents = loadEvents;
+        window.loadGallery = loadGallery;
+        window.loadBlog = loadBlog;
+        window.loadVideos = loadVideos;
+    </script>
+
+    <script>
+        // Date
+        const now = new Date();
+        document.getElementById('currentDate').textContent =
+            now.toLocaleDateString('en-PH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Section nav
+        function showSection(name, el) {
+            document.querySelectorAll('.dashboard-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.getElementById('section-' + name).classList.add('active');
+            if (el) el.classList.add('active');
+            const titles = { overview:'Overview', events:'Events', gallery:'Gallery', blog:'Blog / Messenger', videos:'Videos / Sermons' };
+            document.getElementById('topbarTitle').textContent = titles[name];
+            if (window.innerWidth <= 900) closeSidebar();
+        }
+        window.showSection = showSection;
+
+        // Modal
+        function openModal(type) {
+            // reset
+            const ids = { event: ['eventId','eventDay','eventMonth','eventTitle','eventDesc','eventAuthor'],
+                          gallery: ['galleryId','galleryTitle','galleryUrl'],
+                          blog: ['blogId','blogDay','blogMonth','blogTitle','blogContent','blogAuthor'],
+                          video: ['videoId','videoTitle','videoSpeaker','videoDate','videoUrl'] };
+            (ids[type] || []).forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+            const titles = { event:'Add Event', gallery:'Add Photo', blog:'New Post', video:'Add Sermon' };
+            const el = document.getElementById(type+'ModalTitle');
+            if (el) el.textContent = titles[type];
+            document.getElementById('modal-' + type).classList.add('open');
+        }
+        window.openModal = openModal;
+
+        function closeModal(type) {
+            document.getElementById('modal-' + type).classList.remove('open');
+        }
+        window.closeModal = closeModal;
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+        });
+
+        // Toast
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+        window.showToast = showToast;
+
+        // Escape quotes for inline onclick attrs
+        function escQ(str) {
+            return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+        window.escQ = escQ;
+
+        // Sidebar mobile
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+        }
+        window.toggleSidebar = toggleSidebar;
+    </script>
+
+</body>
+</html>

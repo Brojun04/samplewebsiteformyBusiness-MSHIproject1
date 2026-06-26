@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mustard Seed Harvest Ministries Inc.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="top-utility-bar">
+        <div class="utility-container">
+            <a href="https://m.me/mustardseedhmi" target="_blank">Media</a>
+            <a href="location.html">✉ Contact Us</a>
+        </div>
+    </div>
+
+    <header class="main-hero" style="background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('images/senior-pastor-bg.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <nav id="navbar">
+            <div class="logo">
+                <h2>MUSTARD SEED<br><span class="logo-subtext">HARVEST MINISTRIES INC.</span></h2>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul id="navMenu">
+                <li><a href="index.html" class="nav-active">Belong & Grow</a></li>
+                <li><a href="about.html">Mission & Serve</a></li>
+                <li><a href="services.html">Worship & Music</a></li>
+                <li><a href="pastor.html">Pastors</a></li>
+                <li><a href="location.html">Location</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+            </ul>
+        </nav>
+
+        <div class="hero-center-content">
+            <h1 class="hero-main-title">WELCOME TO OUR COMMUNITY</h1>
+            <p class="hero-sub-title">WHAT CAN WE HELP YOU FIND?</p>
+            
+            <div class="search-bar-wrapper">
+                <input type="text" placeholder="SEARCH..." class="search-input-field">
+                <span class="search-icon-trigger">🔍︎</span>
+            </div>
+
+            <div class="scroll-anchor-down">
+                <a href="#intro-declaration">▼</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="intro-declaration" class="intro-statement-section">
+        <div class="statement-body-wrapper">
+            <p class="main-statement-paragraph">
+                <strong>Mustard Seed Harvest Ministries Inc.</strong> is a group of people united by faith in Jesus Christ and called to live out his gospel. We invite you to join us this Sunday as we journey together with Christ.
+            </p>
+            <p class="sub-statement-mission">Leading People to Christ and Building Disciples for God's Glory</p>
+        </div>
+    </section>
+
+    <section class="portfolio-quad-grid">
+        <div class="quad-grid-container">
+            <div class="quad-item-card" id="search-communities" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/communities.jpg');" onclick="openLightbox('images/communities.jpg', 'Missional Communities', 'Growing together in faith through small groups and fellowship.')">
+                <div class="quad-card-overlay-info">
+                    <h3>Missional Communities</h3>
+                    <div class="interactive-plus-icon">+</div>
+                </div>
+            </div>
+            <div class="quad-item-card" id="search-sermons" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/sermons.jpg');" onclick="openLightbox('images/sermons.jpg', 'Previous Sermons', 'Revisit powerful messages from our past worship services.')">
+                <div class="quad-card-overlay-info">
+                    <h3>Previous Sermons</h3>
+                    <div class="interactive-plus-icon">+</div>
+                </div>
+            </div>
+            <div class="quad-item-card" id="search-weddings" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/weddings.jpg');" onclick="openLightbox('images/weddings.jpg', 'Our Weddings', 'Celebrating sacred unions blessed within our community.')">
+                <div class="quad-card-overlay-info">
+                    <h3>Our Weddings</h3>
+                    <div class="interactive-plus-icon">+</div>
+                </div>
+            </div>
+            <div class="quad-item-card" id="search-events" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/special-events.jpg');" onclick="openLightbox('images/special-events.jpg', 'Special Events', 'Memorable moments from our special church gatherings.')">
+                <div class="quad-card-overlay-info">
+                    <h3>Special Events</h3>
+                    <div class="interactive-plus-icon">+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal-overlay" onclick="closeLightboxOnOverlay(event)">
+        <div class="lightbox-modal-box">
+            <span class="lightbox-close-btn" onclick="closeLightbox()">&times;</span>
+            <img id="lightboxImage" class="lightbox-modal-image" src="" alt="">
+            <div class="lightbox-modal-caption">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDesc"></p>
+                <a href="gallery.html" class="lightbox-gallery-link">View Full Gallery ➔</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .quad-item-card { cursor: pointer; }
+
+        .lightbox-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .lightbox-modal-overlay.active {
+            display: flex;
+        }
+        .lightbox-modal-box {
+            position: relative;
+            max-width: 700px;
+            width: 100%;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            animation: lightboxFadeIn 0.25s ease;
+        }
+        @keyframes lightboxFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .lightbox-modal-image {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: cover;
+            display: block;
+        }
+        .lightbox-modal-caption {
+            padding: 20px;
+            text-align: center;
+        }
+        .lightbox-modal-caption h3 {
+            margin: 0 0 8px;
+        }
+        .lightbox-modal-caption p {
+            margin: 0 0 14px;
+            color: #555;
+        }
+        .lightbox-gallery-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #b8860b;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .lightbox-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            font-size: 32px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+            text-shadow: 0 0 6px rgba(0,0,0,0.6);
+        }
+
+        /* Logo text styling */
+        .logo h2 {
+            color: #f5deb3;
+            font-family: 'Georgia', serif;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+        .logo-subtext {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #ddd;
+        }
+
+        /* Search highlight effect */
+        .search-highlight {
+            outline: 4px solid #b8860b;
+            outline-offset: 4px;
+            transition: outline 0.3s ease;
+        }
+    </style>
+
+    <script>
+        function openLightbox(imgSrc, title, desc) {
+            document.getElementById('lightboxImage').src = imgSrc;
+            document.getElementById('lightboxTitle').textContent = title;
+            document.getElementById('lightboxDesc').textContent = desc;
+            document.getElementById('lightboxModal').classList.add('active');
+        }
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.remove('active');
+        }
+        function closeLightboxOnOverlay(event) {
+            if (event.target.id === 'lightboxModal') closeLightbox();
+        }
+    </script>
+
+    <section class="whats-new-layout-matrix">
+        <h2 class="global-gold-heading-title">WHAT'S NEW AT MUSTARD SEED</h2>
+        
+        <div class="dual-panel-container">
+            <div class="left-panel-spotlight">
+                <h3 class="panel-header-demarcation">📅 FEATURED EVENTS OR SIMILAR <span class="header-action-view-all"><a href="events.html">All Events</a></span></h3>
+                <div class="spotlight-banner-hero" id="search-youth" style="background-image: linear-gradient(to top, rgba(0,0,0,0.9), transparent), url('images/youth-fellowship.jpg');">
+                    <div class="spotlight-text-content">
+                        <h4>Youth Fellowship</h4>
+                        <p>Join us for worship, fellowship, and growing together in faith. Experience God's presence and a Christ-centered community.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel-feed-logs">
+                <h3 class="panel-header-demarcation">✍ THE MESSENGER BLOG <span class="header-action-view-all"><a href="events.html">Past Issues</a></span></h3>
+                
+                <div class="feed-log-segment-row" id="search-sunday">
+                    <div class="feed-calendar-badge">
+                        <span class="badge-day-digit">12</span>
+                        <span class="badge-month-alpha">JUL</span>
+                    </div>
+                    <div class="feed-contextual-details">
+                        <h5>SUNDAY WORSHIP SCHEDULE</h5>
+                        <p>Come and praise with us at our central sanctuary starting 9:00 AM. Prepare your hearts for a powerful message.</p>
+                        <span class="feed-meta-author">Posted by Pastor Ulysses Tabugadir</span>
+                    </div>
+                </div>
+
+                <div class="feed-log-segment-row" id="search-anniversary">
+                    <div class="feed-calendar-badge">
+                        <span class="badge-day-digit">15</span>
+                        <span class="badge-month-alpha">JUN</span>
+                    </div>
+                    <div class="feed-contextual-details">
+                        <h5>CHURCH ANNIVERSARY 2026</h5>
+                        <p>Celebrating God's faithfulness, massive blessings, and spiritual growth through years of dedication and service.</p>
+                        <span class="feed-meta-author">Posted by MSHMI Ministry Team</span>
+                    </div>
+                </div>
+
+                <div class="feed-log-segment-row" id="search-fellowships">
+                    <div class="feed-calendar-badge">
+                        <span class="badge-day-digit">07</span>
+                        <span class="badge-month-alpha">APR</span>
+                    </div>
+                    <div class="feed-contextual-details">
+                        <h5>WEDNESDAY & THURSDAY FELLOWSHIPS</h5>
+                        <p>Do not miss our regular mid-week prayer meetings and empowering Thursday night praise services.</p>
+                        <span class="feed-meta-author">Posted by Devotion Team</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="premium-footer-architecture">
+        <div class="footer-top-links-grid">
+            <div class="footer-grid-column">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-vertical-navigation-list">
+                    <li><a href="index.html">Worship</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="pastor.html">Church Staff</a></li>
+                    <li><a href="services.html">Schedules</a></li>
+                    <li><a href="location.html">Site Map</a></li>
+                    <li><a href="gallery.html">Gallery Collection</a></li>
+                    <li><a href="events.html">Messenger Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-grid-column">
+                <h4>CAN'T FIND IT</h4>
+                <div class="footer-search-bar-box">
+                    <input type="text" placeholder="Search...">
+                    <button class="footer-search-action-btn">🔍︎</button>
+                </div>
+                <div class="footer-action-buttons-group">
+                    <a href="staff-login.html" class="footer-action-btn-link premium-gold-fill">STAFF ONLY</a>
+                    <a href="https://web.facebook.com/mustardseedhmi/" target="_blank" class="footer-action-btn-link dark-slate-fill">LOG IN</a>
+                </div>
+            </div>
+
+            <div class="footer-grid-column">
+                <h4>WORSHIP SERVICE TIMES</h4>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Sunday Sanctuary Service:</strong> 9:00 AM</div>
+                </div>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Wednesday Prayer Meeting:</strong> 7:00 PM</div>
+                </div>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Thursday Worship Night:</strong> 6:00 PM</div>
+                </div>
+                <a href="services.html" class="footer-gold-action-arrow-link">UPCOMING WORSHIP ➔</a>
+            </div>
+        </div>
+
+        <div class="footer-map-embed-block">
+            <div class="footer-map-frame-wrapper">
+                <iframe src="https://www.google.com/maps?q=Antipolo+City&output=embed" width="100%" height="240" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="floating-contact-details-card-overlay">
+                <h5>CONTACT US</h5>
+                <p>2nd Floor Samson Building,<br>Don Vicente Peñafrancia, Antipolo City</p>
+                <p>Contact: info@mustardseedhmi.org</p>
+                <p>FB: @mustardseedhmi</p>
+            </div>
+        </div>
+
+       <div class="footer-social-circular-links">
+
+    <a href="https://web.facebook.com/mustardseedhmi/"
+       target="_blank"
+       class="circular-social-icon">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="https://www.youtube.com/@MustardseedChurchChannel"
+       target="_blank"
+       class="circular-social-icon">
+        <i class="fab fa-youtube"></i>
+    </a>
+
+    <a href="#"
+       class="circular-social-icon">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

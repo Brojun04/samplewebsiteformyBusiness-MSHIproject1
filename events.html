@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Mustard Seed Harvest Ministries Inc.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="top-utility-bar">
+        <div class="utility-container">
+            <a href="https://m.me/mustardseedhmi" target="_blank">Media</a>
+            <a href="location.html">✉ Contact Us</a>
+        </div>
+    </div>
+
+    <header class="page-title-banner" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('images/special-events.jpg');">
+        <nav id="navbar">
+           <div class="logo">
+    <h2>MSHI</h2>
+</div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul id="navMenu">
+                <li><a href="index.html">Belong & Grow</a></li>
+                <li><a href="about.html">Mission & Serve</a></li>
+                <li><a href="services.html">Worship & Music</a></li>
+                <li><a href="pastor.html">Pastors</a></li>
+                <li><a href="location.html">Location</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html" class="nav-active">Events</a></li>
+            </ul>
+        </nav>
+
+        <div class="banner-center-content">
+            <h1 class="banner-main-title">EVENTS</h1>
+            <div class="banner-breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Events</div>
+        </div>
+    </header>
+
+    <section class="centered-content-section">
+        <span class="section-eyebrow">What's Happening</span>
+        <h2 class="section-heading">Upcoming Gatherings & Ministry Events</h2>
+        <p class="section-body-text">Stay connected and join us as we worship, fellowship, and grow together as one church family. Here's what's coming up at Mustard Seed Harvest Ministries.</p>
+    </section>
+
+    <!-- Dynamic Events List -->
+    <section class="events-stacked-list" id="eventsList">
+
+        <!-- Loading state -->
+        <div id="eventsLoading" style="text-align:center; padding: 40px; color:#999; font-size:13px; letter-spacing:1px;">
+            <i class="fa-solid fa-circle-notch fa-spin" style="font-size:24px; color:#d4a373; margin-bottom:12px; display:block;"></i>
+            Loading events...
+        </div>
+
+        <!-- Empty state (hidden by default) -->
+        <div id="eventsEmpty" style="display:none; text-align:center; padding:60px 20px; color:#bbb;">
+            <i class="fa-solid fa-calendar-xmark" style="font-size:36px; color:#d4a373; opacity:0.4; display:block; margin-bottom:14px;"></i>
+            <p style="font-size:12px; letter-spacing:1px; text-transform:uppercase;">No events posted yet. Check back soon!</p>
+        </div>
+
+    </section>
+
+    <section class="centered-content-section alt-bg-band is-narrow">
+        <span class="section-eyebrow">Stay In The Loop</span>
+        <h2 class="section-heading">Don't Miss What's Next</h2>
+        <p class="section-body-text">Follow us on Facebook and YouTube for live updates and announcements about all our upcoming events.</p>
+        <a href="https://web.facebook.com/mustardseedhmi/" target="_blank" class="footer-gold-action-arrow-link" style="margin-top:10px; display:inline-block;">FOLLOW US ➔</a>
+    </section>
+
+    <footer class="premium-footer-architecture">
+        <div class="footer-top-links-grid">
+            <div class="footer-grid-column">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-vertical-navigation-list">
+                    <li><a href="index.html">Worship</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="pastor.html">Church Staff</a></li>
+                    <li><a href="services.html">Schedules</a></li>
+                    <li><a href="location.html">Site Map</a></li>
+                    <li><a href="gallery.html">Gallery Collection</a></li>
+                    <li><a href="events.html">Messenger Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-grid-column">
+                <h4>CAN'T FIND IT</h4>
+                <div class="footer-search-bar-box">
+                    <input type="text" placeholder="Search...">
+                    <button class="footer-search-action-btn">🔍</button>
+                </div>
+                <div class="footer-action-buttons-group">
+                    <a href="staff-login.html" class="footer-action-btn-link premium-gold-fill">STAFF ONLY</a>
+                    <a href="https://web.facebook.com/mustardseedhmi/" target="_blank" class="footer-action-btn-link dark-slate-fill">LOG IN</a>
+                </div>
+            </div>
+
+            <div class="footer-grid-column">
+                <h4>WORSHIP SERVICE TIMES</h4>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Sunday Sanctuary Service:</strong> 9:00 AM</div>
+                </div>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Wednesday Prayer Meeting:</strong> 7:00 PM</div>
+                </div>
+                <div class="footer-service-schedule-row">
+                    <span class="schedule-row-icon">🕒</span>
+                    <div class="schedule-row-text"><strong>Thursday Worship Night:</strong> 6:00 PM</div>
+                </div>
+                <a href="services.html" class="footer-gold-action-arrow-link">UPCOMING WORSHIP ➔</a>
+            </div>
+        </div>
+
+        <div class="footer-map-embed-block">
+            <div class="footer-map-frame-wrapper">
+                <iframe src="https://www.google.com/maps?q=Antipolo+City&output=embed" width="100%" height="240" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="floating-contact-details-card-overlay">
+                <h5>CONTACT US</h5>
+                <p>2nd Floor Samson Building,<br>Don Vicente Peñafrancia, Antipolo City</p>
+                <p>Contact: info@mustardseedhmi.org</p>
+                <p>FB: @mustardseedhmi</p>
+            </div>
+        </div>
+
+        <div class="footer-social-circular-links">
+            <a href="https://web.facebook.com/mustardseedhmi/" target="_blank" class="circular-social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.youtube.com/@MustardseedChurchChannel" target="_blank" class="circular-social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="circular-social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Firestore Events Loader -->
+    <script type="module">
+        import { db } from "./js/firebase.js";
+        import {
+            collection, getDocs, query, orderBy
+        } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        async function loadEvents() {
+            const loading = document.getElementById('eventsLoading');
+            const empty   = document.getElementById('eventsEmpty');
+            const list    = document.getElementById('eventsList');
+
+            try {
+                const q = query(collection(db, 'events'), orderBy('createdAt', 'desc'));
+                const snap = await getDocs(q);
+
+                // Hide loading
+                loading.style.display = 'none';
+
+                if (snap.empty) {
+                    empty.style.display = 'block';
+                    return;
+                }
+
+                snap.docs.forEach(d => {
+                    const ev = d.data();
+                    const card = document.createElement('div');
+                    card.className = 'event-list-card';
+                    card.innerHTML = `
+                        <div class="event-date-block">
+                            <span class="event-day-num">${ev.day || '--'}</span>
+                            <span class="event-month-abbr">${ev.month || ''}</span>
+                        </div>
+                        <div class="event-info-block">
+                            <h4>${ev.title || ''}</h4>
+                            <p>${ev.desc || ''}</p>
+                            ${ev.author ? `<span class="event-meta-line">Posted by ${ev.author}</span>` : ''}
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+
+            } catch (err) {
+                loading.innerHTML = '<p style="color:#c0392b;font-size:12px;">Failed to load events. Please try again later.</p>';
+                console.error('Error loading events:', err);
+            }
+        }
+
+        loadEvents();
+    </script>
+
+</body>
+</html>
